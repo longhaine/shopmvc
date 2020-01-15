@@ -13,12 +13,11 @@ import com.shopmvc.entity.Category;
 import com.shopmvc.repository.CategoryRepository;
 
 @Service
-@CacheConfig(cacheNames = {"category"})
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	@Cacheable
+	@Cacheable("categoryFindAll")
 	public ArrayList<Category> findAll(){
 		ArrayList<Category> list = new ArrayList<Category>();
 		for(Category category : categoryRepository.findAll())
@@ -27,7 +26,7 @@ public class CategoryService {
 		}
 		return list;
 	}
-	
+	@Cacheable(value = "categoriesByGender", key ="#gender")
 	public List<Category> findByGender(String gender) {
 		return categoryRepository.findByGender(gender);
 	}

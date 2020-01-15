@@ -11,13 +11,12 @@ import com.shopmvc.entity.Brand;
 import com.shopmvc.repository.BrandRepository;
 
 @Service
-@CacheConfig(cacheNames = {"brand"})
 public class BrandService {
 	
 	@Autowired
 	private BrandRepository brandRepository;
 	
-	@Cacheable
+	@Cacheable("brandFindAll")
 	public ArrayList<Brand> findAll(){
 		ArrayList<Brand> list = new ArrayList<Brand>();
 		for(Brand brand : brandRepository.findAll())

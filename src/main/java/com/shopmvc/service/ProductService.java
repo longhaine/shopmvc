@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.shopmvc.entity.Category;
@@ -23,12 +24,14 @@ public class ProductService {
 	public void save(Product product) {
 		productRepository.save(product);
 	}
+	@Cacheable("popularProduct")
 	public ArrayList<Product> findPopularProduct(){
 		return productRepository.findPopularProduct();
 	}
 	public ArrayList<Product> findByCategoryAndGender(Category category,String gender){
 		return productRepository.findByCategoryAndGender(category,gender);
 	}
+	@Cacheable(value ="productsByGender",key = "#gender")
 	public ArrayList<Product> findByGender(String gender){
 		return productRepository.findByGender(gender);
 	}
