@@ -138,7 +138,7 @@ public class AccountController {
 	public String doRegister(Account account, String requestURL) {
 		if(accountService.register(account) == true){
 			Verification verification = verificationService.save(new Verification(account));
-			if(mailService.sendVerifiedLink(requestURL+verification.getPathInfo(), verification.getAccount().getEmail()));
+			if(mailService.sendLink(requestURL+verification.getPathInfo(), verification.getAccount().getEmail(),"verification"));
 			{
 				return "Your account has been successfully created, please check your email for verified link.";
 			}
@@ -191,7 +191,7 @@ public class AccountController {
 					Verification verification = verificationService.findByAccount(account);
 					String path = "/account/register/verification/";
 					String requestURL = getTheWholeURL(request, path);
-					if(mailService.sendVerifiedLink(requestURL+verification.getPathInfo(), verification.getAccount().getEmail()) == true){
+					if(mailService.sendLink(requestURL+verification.getPathInfo(), verification.getAccount().getEmail(),"verification") == true){
 						message = "We've sent you a link, please check your email for verifying your account !";
 					}
 				}
@@ -234,7 +234,7 @@ public class AccountController {
 					forgot = forgotService.save(new Forgot(account)).get(); // insert another forgot
 					System.out.println(forgot.getPathinfo());
 				}
-				if(mailService.sendResetPasswordLink(requestURL + forgot.getPathinfo(), forgot.getAccount().getEmail()) == true) {
+				if(mailService.sendLink(requestURL + forgot.getPathinfo(), forgot.getAccount().getEmail(),"reset") == true) {
 					message ="We've sent you a link, please check your email for resetting your password!";
 				}
 			}

@@ -8,6 +8,6 @@ public class ShopMvcApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShopMvcApplication.class, args);
-		System.out.println("Lucky for you");
+		System.out.println("It's running!!! Lucky for you!");
 	}
 }
